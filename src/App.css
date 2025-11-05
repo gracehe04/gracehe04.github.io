@@ -1,38 +1,139 @@
-.App {
+:root {
+  --bg-color: #ffffff;
+  --text-color: #222222;
+  --card-bg: #f0f0f0;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --tag-bg: #eaeaea;
+  --tag-text: #222;
+  --tag-hover-bg: #d4d4d4;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #f5f5f5;
+  --card-bg: #1e1e1e;
+  --card-shadow: rgba(0, 0, 0, 0.5);
+  --tag-bg: #2a2a2a;
+  --tag-text: #f5f5f5;
+  --tag-hover-bg: #3a3a3a;
+  --github-color: #ddd;
+}
+
+
+body {
+  margin: 0;
+  font-family: Times New Roman, Times New Roman;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--card-bg);
+  box-shadow: 0 2px 5px var(--card-shadow);
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+}
+
+.navbar a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.section {
+  padding: 4rem 2rem;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.section h2 {
+  margin-bottom: 2rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 0 2rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.project-card {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px var(--card-shadow);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px var(--card-shadow);
+}
+
+.project-card a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #0077ff;
+  text-decoration: none;
+}
+
+.project-tags {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
 }
 
-.App-link {
-  color: #61dafb;
+.project-tags span {
+  background-color: var(--tag-bg);
+  color: var(--tag-text);
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.project-tags span:hover {
+  background-color: var(--tag-hover-bg);
+  transform: scale(1.05);
 }
+
+.footer {
+  padding: 2rem;
+  text-align: center;
+  background-color: var(--card-bg);
+  box-shadow: 0 -2px 5px var(--card-shadow);
+  margin-top: 4rem;
+}
+
+.footer-text {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.linkedin{
+  color: #0077b5;
+  padding: 0.15rem;
+}
+
+.github {
+  color: var(--github-color);
+  padding: 0.15rem; 
+}
+

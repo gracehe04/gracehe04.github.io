@@ -1,0 +1,41 @@
+.jot-notes {
+    list-style: none;
+    padding-left: 0;
+    margin: 0.5rem 0;
+}
+
+.jot-notes li {
+    margin: 0.3rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+}
+
+.jot-notes li::before {
+    content: "✦";
+    /* or "•", "→", "–", etc. */
+    position: absolute;
+    left: 0;
+    color: #888;
+    /* subtle bullet color */
+}
+
+.jot-notes a {
+    color: #0077ff;
+    text-decoration: none;
+}
+
+.jot-notes a:hover {
+    text-decoration: underline;
+}
+
+.about-section {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px var(--card-shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    max-width: 800px;
+    width: calc(100% - 2rem);
+    margin: 4rem auto; /* horizontal centering, vertical spacing */
+    box-sizing: border-box;
+}
