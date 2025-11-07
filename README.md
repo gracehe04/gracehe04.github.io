@@ -2,7 +2,7 @@
 
 Welcome to my personal portfolio website!  
 This site showcases my projects, skills, and interests — built with **React**.
-Checkout the deployed site here: https://gracehe04.github.io/personal-portfolio/
+Checkout the deployed site here: https://gracehe04.github.io
 
 ## ✨ Features
 
