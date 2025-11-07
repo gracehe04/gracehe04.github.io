@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./Home.css";
 
 const Header = () => {
@@ -6,13 +6,13 @@ const Header = () => {
   const [textIndex, setTextIndex] = useState(0);
   const [dynamicIndex, setDynamicIndex] = useState(0);
 
-  const dynamicTexts = [
-    "It's great to see you here 😊",
-    "I'm a full-stack developer 💻",
-    "I'm interested in Psychology (Behavioral, Developmental) 🧠",
-    "I love trying new restaurants and matcha places 🍵",
-    "Stay tuned for more updates 🌀"
-  ];
+const dynamicTexts = useMemo(() => [
+  "It's great to see you here 😊",
+  "I'm a full-stack developer 💻",
+  "I'm an undergraduate student @ NYU 🧠",
+  "I love trying new restaurants and matcha places 🍵",
+  "Stay tuned for more updates 🌀"
+], []);
 
   const typingSpeed = 85;
 
@@ -38,6 +38,11 @@ const Header = () => {
 
   return (
     <section id="home" className="header-container">
+      <img
+        src="/assets/He_Grace2025.JPG"
+        alt="Grace He"
+        className="header-photo"
+      />
       <h2 className="header-title">Hi! I'm Grace :)</h2>
       <h3 className="header-text">
         {dynamicText}

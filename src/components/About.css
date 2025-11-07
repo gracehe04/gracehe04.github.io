@@ -36,6 +36,6 @@
     transition: transform 0.3s, box-shadow 0.3s;
     max-width: 800px;
     width: calc(100% - 2rem);
-    margin: 4rem auto; /* horizontal centering, vertical spacing */
+    margin: 4rem auto;
     box-sizing: border-box;
 }

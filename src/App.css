@@ -44,6 +44,20 @@ body {
   margin: 0;
 }
 
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: right;
+    padding: 1rem;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+}
+
 .navbar a {
   color: var(--text-color);
   text-decoration: none;
@@ -72,12 +86,28 @@ body {
   padding: 0 2rem;
 }
 
+@media (max-width: 480px) {
+  .project-grid {
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+}
+
 .project-card {
   background-color: var(--card-bg);
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 6px var(--card-shadow);
   transition: transform 0.3s, box-shadow 0.3s;
+}
+
+@media (max-width: 480px) {
+  .project-card {
+    padding: 1rem;
+  }
+  .project-tags {
+    font-size: 0.8rem;
+  }
 }
 
 .project-card:hover {
@@ -127,6 +157,15 @@ body {
   font-size: 1rem;
 }
 
+@media (max-width: 480px) {
+  .footer {
+    padding: 1rem;
+  }
+  .footer-text {
+    font-size: 0.9rem;
+  }
+}
+
 .linkedin{
   color: #0077b5;
   padding: 0.15rem;
@@ -136,4 +175,11 @@ body {
   color: var(--github-color);
   padding: 0.15rem; 
 }
+
+@media (max-width: 480px) {
+  .section {
+    padding: 2rem 1rem;
+  }
+}
+
 
