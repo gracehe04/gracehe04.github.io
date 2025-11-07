@@ -39,7 +39,7 @@ const dynamicTexts = useMemo(() => [
   return (
     <section id="home" className="header-container">
       <img
-        src="/assets/He_Grace2025.JPG"
+        src="https://gracehe04.github.io/personal-portfolio/image.jpg"
         alt="Grace He"
         className="header-photo"
       />
