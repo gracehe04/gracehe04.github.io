@@ -8,7 +8,7 @@ function Navbar({ theme, toggleTheme }) {
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="https://gracehe04.github.io/personal-portfolio/Grace_He_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a></li>
+        <li><a href={`${process.env.PUBLIC_URL}/Grace_He_Resume.pdf`} target="_blank" rel="noopener noreferrer">Resume</a></li>
         <li><a href="mailto:gh2313@nyu.edu">Contact</a></li>
       </ul>
       <button className="theme-toggle" onClick={toggleTheme}>

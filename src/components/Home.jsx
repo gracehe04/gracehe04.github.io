@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import "./Home.css";
+import headshot from "../assets/He_Grace2025.JPG";
 
 const Header = () => {
   const [dynamicText, setDynamicText] = useState("");
@@ -39,7 +40,7 @@ const dynamicTexts = useMemo(() => [
   return (
     <section id="home" className="header-container">
       <img
-        src="https://gracehe04.github.io/personal-portfolio/image.jpg"
+        src={headshot}
         alt="Grace He"
         className="header-photo"
       />
