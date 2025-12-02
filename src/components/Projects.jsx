@@ -1,7 +1,14 @@
-import React from "react";
+import { FaGithub } from 'react-icons/fa';
 
 function Projects() {
 const projectList = [
+  {
+    name: "MojiHands",
+    description: "Hand gesture classification app using computer vision",
+    link: "https://github.com/swe-students-fall2025/4-containers-the-lego-movie",
+    //link: "demo video"
+    technologies: ["Python", "Flask", "NumPy", "base64", "PIL", "MongoDB", "Mediapipe", "JavaScript"]
+  },
   { 
     name: "AnimalSay", 
     description: "Python module for ASCII animal art + moods", 
@@ -62,7 +69,11 @@ const projectList = [
                 <span key={i} className="tag">{tech}</span>
               ))}
             </div>
-            {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer">View Project</a>}
+            {project.link && (
+              <a href={project.link} target="_blank" rel="noopener noreferrer">
+                <FaGithub size={24} />
+              </a>
+            )}
           </div>
         ))}
       </div>
