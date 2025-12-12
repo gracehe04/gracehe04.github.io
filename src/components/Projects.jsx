@@ -1,7 +1,15 @@
 import { FaGithub } from 'react-icons/fa';
+import{ FaLink } from 'react-icons/fa';
 
 function Projects() {
 const projectList = [
+    {
+    name: "PantryPal",
+    description: "Generate recipes based on the ingredients you have available in your pantry",
+    link: "https://github.com/swe-students-fall2025/4-containers-the-lego-movie",
+    deployment: "http://138.197.30.226:5001/" ,
+    technologies: ["Python", "FastAPI", "Flask", "JavaScript", "MongoDB","Pytest", "HTML", "CSS",]
+  },
   {
     name: "MojiHands",
     description: "Hand gesture classification app using computer vision",
@@ -24,7 +32,7 @@ const projectList = [
   },
   { 
     name: "Google Developers Group Platform", 
-    description: "Showcases club events + mentorship opportunities", 
+    description: "Showcases club events + mentorship opportunities for 500+ members",
     link: "https://github.com/BAMOEQ/GDG_Website",
     technologies: ["React.js", "Flask", "HTML", "CSS"]
   },
@@ -32,6 +40,7 @@ const projectList = [
     name: "Pawsome Companion", 
     description: "Pet adoption website, analyzes web traffic with Google Analytics", 
     link: "https://github.com/gracehe04/mypawsomecompanion",
+    deployment: "https://mypawsomecompanions.netlify.app/",
     technologies: ["React", "TypeScript", "HTML", "CSS", "Google Analytics", "Google Tag Manager"]
   },
   { 
@@ -69,11 +78,29 @@ const projectList = [
                 <span key={i} className="tag">{tech}</span>
               ))}
             </div>
-            {project.link && (
-              <a href={project.link} target="_blank" rel="noopener noreferrer">
-                <FaGithub size={24} />
-              </a>
-            )}
+              <div className="project-links">
+                {project.deployment && (
+                  <a
+                    href={project.deployment}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="deployment-link"
+                  >
+                    <FaLink size = {21} style = {{marginRight: "0.5rem"}}/>
+                  </a>
+                )}
+
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="github-link"
+                  >
+                    <FaGithub size={24} />
+                  </a>
+                )}
+              </div>
           </div>
         ))}
       </div>
