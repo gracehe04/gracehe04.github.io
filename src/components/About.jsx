@@ -7,7 +7,7 @@ function About() {
             <h4>👋 It's great to see you here!</h4>
             <ul className = "jot-notes">
             <li>
-                I'm an undergraduate student at New York University studying Applied Psychology and Computer Science. I enjoy creating functional web applications and I am passionate about continuously improving my skills!
+                I’m an undergraduate at New York University studying Computer Science and Applied Psychology, with an interest in building functional, user-centered applications and continuously improving my technical skills!
             </li>
             </ul>
             <h4>🌱 I’m currently working on ...</h4>
