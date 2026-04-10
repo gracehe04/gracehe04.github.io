@@ -1,36 +1,78 @@
-# 🌸 Grace He's Portfolio
+# Grace He's Portfolio
 
-Welcome to my personal portfolio website!  
-This site showcases my projects, skills, and interests — built with **React**.
-Checkout the deployed site here: https://gracehe04.github.io
+Personal portfolio website built with React and deployed to GitHub Pages.
 
-## ✨ Features
+Live site: https://gracehe04.github.io
 
-- 🎨 Clean, responsive design that adapts to any screen size  
-- 💬 Dynamic typing header with rotating introductions  
-- 💻 Organized project cards with links to GitHub and live demos  
-- 🌗 Light/dark theme support
+## Features
 
-## 🛠️ Tech Stack
+- Responsive single-page layout with Home, About, and Projects sections
+- Theme toggle with light/dark mode persistence via localStorage
+- Typing-style rotating intro text on the home section
+- Project cards with drag-and-drop reordering
+- First-visit onboarding tip for project card interaction
+- External links to GitHub, LinkedIn, resume, and selected project deployments
 
-- **Frontend:** React, HTML, CSS  
-- **Version Control:** Git + GitHub  
-- **Deployment:** GitHub Pages
+## Tech Stack
 
-## 🚀 Getting Started
+- React 19
+- react-scripts (Create React App)
+- CSS
+- react-icons and lucide-react
+- GitHub Pages (gh-pages)
 
-### 1️⃣ Clone the repository
+## Getting Started
+
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/personal-portfolio.git
-cd personal-portfolio
+git clone https://github.com/gracehe04/gracehe04.github.io.git
+cd my-portfolio
 ```
-### 2️⃣ Install dependencies
+
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
-### 3️⃣ Run locally
+
+### 3. Start the development server
+
 ```bash
-npm run dev
+npm start
 ```
+
+The app will run at http://localhost:3000.
+
+## Available Scripts
+
+- npm start: Runs the app in development mode
+- npm test: Launches the test runner in interactive watch mode
+- npm run build: Builds the app for production into the build folder
+- npm run deploy: Builds and deploys the build folder to GitHub Pages
+
+## Deployment
+
+This project uses the homepage field in package.json plus gh-pages scripts:
+
+- predeploy: npm run build
+- deploy: gh-pages -d build
+
+To publish changes:
+
+```bash
+npm run deploy
+```
+
+## Project Structure
+
+Main source code lives in the src directory:
+
+- src/App.js: App-level theme state and shell wiring
+- src/components/Home.jsx: Intro, rotating text, and social/resume links
+- src/components/About.jsx: Background and experience section
+- src/components/Projects.jsx: Project list and drag-and-drop behavior
+
+## License
+
+This project is for personal portfolio use.
