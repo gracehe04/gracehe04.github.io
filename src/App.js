@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./components/Navbar";
+import DesignShell from "./components/DesignShell";
+import CustomCursor from "./components/CustomCursor";
 import Home from "./components/Home";
 import About from "./components/About";
 import Projects from "./components/Projects";
 import Footer from "./components/Footer";
-//import Contact from "./components/Contact";
 import "./App.css";
+
+const sections = [
+  { id: "home",     Component: Home     },
+  { id: "about",    Component: About    },
+  { id: "projects", Component: Projects },
+  { id: "footer",   Component: Footer   },
+];
 
 function App() {
   const [theme, setTheme] = useState("light");
 
-  // Persist theme in localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) setTheme(savedTheme);
@@ -26,14 +32,10 @@ function App() {
   };
 
   return (
-    <div>
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
-      <Home />
-      <About />
-      <Projects />
-      {/* <Contact /> */}
-      <Footer />
-    </div>
+    <>
+      <CustomCursor />
+      <DesignShell sections={sections} theme={theme} toggleTheme={toggleTheme} />
+    </>
   );
 }
 
