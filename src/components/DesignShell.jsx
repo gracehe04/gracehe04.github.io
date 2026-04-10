@@ -30,7 +30,8 @@ function DesignShell({ sections, theme, toggleTheme }) {
   const [bgColor,      setBgColor]      = useState(null);
   const [cardBg,       setCardBg]       = useState(null);
   const [dragOverId,   setDragOverId]   = useState(null);
-  const dragItem = useRef(null);
+  const dragItem  = useRef(null);
+  const canvasRef = useRef(null);
 
   // Push colors into CSS variables live
   useEffect(() => {
@@ -51,13 +52,14 @@ function DesignShell({ sections, theme, toggleTheme }) {
 
   // Sync active layer when user scrolls the canvas
   useEffect(() => {
+    if (!canvasRef.current) return;
     const observers = [];
     sectionOrder.forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
       const obs = new IntersectionObserver(
         ([entry]) => { if (entry.isIntersecting) setActiveLayer(id); },
-        { threshold: 0.35 }
+        { root: canvasRef.current, threshold: 0, rootMargin: "0px 0px -50% 0px" }
       );
       obs.observe(el);
       observers.push(obs);
@@ -172,7 +174,7 @@ function DesignShell({ sections, theme, toggleTheme }) {
         </aside>
 
         {/* Canvas */}
-        <main className="design-canvas">
+        <main className="design-canvas" ref={canvasRef}>
           <div className="design-page">
             {orderedSections.map(({ id, Component }) => (
               <div
