@@ -1,41 +1,83 @@
+.about-section {
+  background-color: var(--card-bg);
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  border-top: 3px solid var(--accent);
+  box-shadow: 0 4px 24px var(--card-shadow);
+  max-width: 760px;
+  width: calc(100% - 2rem);
+  margin: 4rem auto;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.about-section h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.25rem;
+  display: inline-block;
+  position: relative;
+}
+
+.about-section h2::after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 40%;
+  margin-top: 0.4rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  border-radius: 2px;
+}
+
+.about-section h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.4rem;
+  color: var(--accent);
+}
+
 .jot-notes {
-    list-style: none;
-    padding-left: 0;
-    margin: 0.5rem 0;
+  list-style: none;
+  padding-left: 0;
+  margin: 0.25rem 0;
 }
 
 .jot-notes li {
-    margin: 0.3rem 0;
-    padding-left: 1.2rem;
-    position: relative;
+  margin: 0.5rem 0;
+  padding-left: 1.4rem;
+  position: relative;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  opacity: 0.85;
 }
 
 .jot-notes li::before {
-    content: "✦";
-    /* or "•", "→", "–", etc. */
-    position: absolute;
-    left: 0;
-    color: #888;
-    /* subtle bullet color */
+  content: "✦";
+  position: absolute;
+  left: 0;
+  color: var(--accent-light);
+  font-size: 0.7rem;
+  top: 0.3rem;
 }
 
 .jot-notes a {
-    color: #0077ff;
-    text-decoration: none;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
 }
 
 .jot-notes a:hover {
-    text-decoration: underline;
+  border-bottom-color: var(--accent);
 }
 
-.about-section {
-    background-color: var(--card-bg);
+@media (max-width: 480px) {
+  .about-section {
     padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px var(--card-shadow);
-    transition: transform 0.3s, box-shadow 0.3s;
-    max-width: 800px;
-    width: calc(100% - 2rem);
-    margin: 4rem auto;
-    box-sizing: border-box;
+    margin: 2rem auto;
+  }
 }
