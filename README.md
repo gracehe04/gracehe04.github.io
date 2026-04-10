@@ -4,6 +4,10 @@ Personal portfolio website built with React and deployed to GitHub Pages.
 
 Live site: https://gracehe04.github.io
 
+## Demo
+
+https://github.com/user-attachments/assets/f791ba08-68d0-4391-ae6f-05e70d4d065c
+
 ## Features
 
 - Responsive single-page layout with Home, About, and Projects sections
