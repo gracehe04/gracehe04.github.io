@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import DesignShell from "./components/DesignShell";
-import CustomCursor from "./components/CustomCursor";
 import Home from "./components/Home";
 import About from "./components/About";
 import Projects from "./components/Projects";
@@ -33,7 +32,6 @@ function App() {
 
   return (
     <>
-      <CustomCursor />
       <DesignShell sections={sections} theme={theme} toggleTheme={toggleTheme} />
     </>
   );
