@@ -10,7 +10,7 @@ const sectionMeta = {
   home:     { label: "Home",     Icon: HiHome },
   about:    { label: "About",    Icon: HiUser },
   projects: { label: "Projects", Icon: HiCode },
-  footer:   { label: "Contact",  Icon: HiMail },
+  footer:   { label: "Footer",  Icon: HiMail },
 };
 
 const lighten = (hex, amount = 0.25) => {
