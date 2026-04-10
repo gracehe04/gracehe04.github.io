@@ -119,10 +119,10 @@ function DesignShell({ sections, theme, toggleTheme }) {
         </div>
 
         <div className="toolbar-right">
-          <button className="toolbar-btn" onClick={toggleTheme} title="Toggle theme" data-tooltip="Switch theme">
+          <button className="toolbar-btn" onClick={toggleTheme} title="Toggle theme">
             {theme === "light" ? "🌙" : "☀️"}
           </button>
-          <a href="mailto:gh2313@nyu.edu" className="toolbar-btn toolbar-btn--primary" data-tooltip="Open email">
+          <a href="mailto:gh2313@nyu.edu" className="toolbar-btn toolbar-btn--primary">
             Contact
           </a>
         </div>
