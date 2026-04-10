@@ -194,7 +194,7 @@ function DesignShell({ sections, theme, toggleTheme }) {
 
         {/* Right panel — Properties */}
         <aside className="design-panel design-panel--right">
-          <div className="panel-header" data-tooltip="Customize design properties">Design</div>
+          <div className="panel-header">Design</div>
           <div className="panel-body">
 
             {/* Active section label */}
