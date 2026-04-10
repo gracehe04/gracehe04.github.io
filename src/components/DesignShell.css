@@ -414,6 +414,54 @@
   min-height: calc(100vh - 48px - 64px);
 }
 
+/* ── Tooltips ── */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0d99ff;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  margin-bottom: 6px;
+  box-shadow: 0 4px 12px rgba(13, 153, 255, 0.3);
+}
+
+[data-tooltip]:hover::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #0d99ff;
+  z-index: 1000;
+  pointer-events: none;
+  margin-bottom: -2px;
+}
+
+/* Responsive: hide tooltips on mobile */
+@media (max-width: 768px) {
+  [data-tooltip]:hover::before,
+  [data-tooltip]:hover::after {
+    display: none;
+  }
+}
+
 /* ── Responsive: hide panels on mobile ── */
 @media (max-width: 768px) {
   .design-panel {

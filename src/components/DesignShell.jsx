@@ -101,14 +101,14 @@ function DesignShell({ sections, theme, toggleTheme }) {
           <button
             className={`tool-btn ${activeTool === "select" ? "tool-btn--active" : ""}`}
             onClick={() => setActiveTool("select")}
-            title="Select (V)"
+            // </div>data-tooltip="Click sections to select (V)"
           >
             <FiMousePointer size={15} />
           </button>
           <button
             className={`tool-btn ${activeTool === "hand" ? "tool-btn--active" : ""}`}
             onClick={() => setActiveTool("hand")}
-            title="Hand (H)"
+            // data-tooltip="Scroll through sections (H)"
           >
             <FiMove size={15} />
           </button>
@@ -119,10 +119,10 @@ function DesignShell({ sections, theme, toggleTheme }) {
         </div>
 
         <div className="toolbar-right">
-          <button className="toolbar-btn" onClick={toggleTheme} title="Toggle theme">
+          <button className="toolbar-btn" onClick={toggleTheme} title="Toggle theme" data-tooltip="Switch theme">
             {theme === "light" ? "🌙" : "☀️"}
           </button>
-          <a href="mailto:gh2313@nyu.edu" className="toolbar-btn toolbar-btn--primary">
+          <a href="mailto:gh2313@nyu.edu" className="toolbar-btn toolbar-btn--primary" data-tooltip="Open email">
             Contact
           </a>
         </div>
@@ -194,7 +194,7 @@ function DesignShell({ sections, theme, toggleTheme }) {
 
         {/* Right panel — Properties */}
         <aside className="design-panel design-panel--right">
-          <div className="panel-header">Design</div>
+          <div className="panel-header" data-tooltip="Customize design properties">Design</div>
           <div className="panel-body">
 
             {/* Active section label */}
@@ -204,9 +204,9 @@ function DesignShell({ sections, theme, toggleTheme }) {
             </div>
 
             {/* Color pickers */}
-            <div className="panel-section-label" style={{ marginTop: "1rem" }}>Accent</div>
+            <div className="panel-section-label" style={{ marginTop: "1rem" }} data-tooltip="try changing the color!">Accent</div>
             <div className="color-row">
-              <label className="color-input-wrapper" title="Pick accent color">
+              <label className="color-input-wrapper">
                 <div className="color-swatch-preview" style={{ background: accentColor }} />
                 <input type="color" value={accentColor} onChange={(e) => setAccentColor(e.target.value)} className="color-input-hidden" />
               </label>
@@ -221,7 +221,7 @@ function DesignShell({ sections, theme, toggleTheme }) {
 
             <div className="panel-section-label" style={{ marginTop: "1.25rem" }}>Background</div>
             <div className="color-row">
-              <label className="color-input-wrapper" title="Pick page background">
+              <label className="color-input-wrapper">
                 <div className="color-swatch-preview" style={{ background: bgColor || (theme === "dark" ? "#0f0f14" : "#ffffff") }} />
                 <input type="color" value={bgColor || (theme === "dark" ? "#0f0f14" : "#ffffff")} onChange={(e) => setBgColor(e.target.value)} className="color-input-hidden" />
               </label>
@@ -229,7 +229,7 @@ function DesignShell({ sections, theme, toggleTheme }) {
               <span className="color-opacity">Page</span>
             </div>
             <div className="color-row">
-              <label className="color-input-wrapper" title="Pick card background">
+              <label className="color-input-wrapper">
                 <div className="color-swatch-preview" style={{ background: cardBg || (theme === "dark" ? "#1a1a24" : "#f0f7ff") }} />
                 <input type="color" value={cardBg || (theme === "dark" ? "#1a1a24" : "#f0f7ff")} onChange={(e) => setCardBg(e.target.value)} className="color-input-hidden" />
               </label>

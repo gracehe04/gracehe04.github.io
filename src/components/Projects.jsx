@@ -100,7 +100,7 @@ function Projects() {
             onDrop={() => onDrop(index)}
             onDragEnd={onDragEnd}
           >
-            <div className="card-drag-handle" title="Drag to reorder">
+            <div className="card-drag-handle" data-tooltip="Drag to reorder">
               <MdDragIndicator size={14} />
             </div>
             {isFirstVisit && index === 0 && (
@@ -119,12 +119,12 @@ function Projects() {
             </div>
             <div className="project-links">
               {project.deployment && (
-                <a href={project.deployment} target="_blank" rel="noopener noreferrer" className="deployment-link">
+                <a href={project.deployment} target="_blank" rel="noopener noreferrer" className="deployment-link" data-tooltip="View deployment">
                   <FaLink size={21} style={{ marginRight: "0.5rem" }} />
                 </a>
               )}
               {project.link && project.link !== "N/A" && (
-                <a href={project.link} target="_blank" rel="noopener noreferrer" className="github-link">
+                <a href={project.link} target="_blank" rel="noopener noreferrer" className="github-link" data-tooltip="View on GitHub">
                   <FaGithub size={24} />
                 </a>
               )}
