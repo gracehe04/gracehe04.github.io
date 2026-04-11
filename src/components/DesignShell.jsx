@@ -6,6 +6,14 @@ import OnboardingTip from "./OnboardingTip";
 import { useFirstVisit } from "../hooks/useFirstVisit";
 import "./DesignShell.css";
 
+const fontOptions = [
+  { label: "Inter",            value: "'Inter', sans-serif" },
+  { label: "Roboto",           value: "'Roboto', sans-serif" },
+  { label: "DM Sans",          value: "'DM Sans', sans-serif" },
+  { label: "Playfair Display", value: "'Playfair Display', serif" },
+  { label: "Space Mono",       value: "'Space Mono', monospace" },
+];
+
 const sectionMeta = {
   home:     { label: "Home",     Icon: HiHome },
   about:    { label: "About",    Icon: HiUser },
@@ -21,7 +29,15 @@ const lighten = (hex, amount = 0.25) => {
   return `#${[r, g, b].map(to255).map((v) => v.toString(16).padStart(2, "0")).join("")}`;
 };
 
-function DesignShell({ sections, theme, toggleTheme }) {
+const darken = (hex, amount = 0.25) => {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  const to0 = (v) => Math.max(0, Math.round(v * (1 - amount)));
+  return `#${[r, g, b].map(to0).map((v) => v.toString(16).padStart(2, "0")).join("")}`;
+};
+
+function DesignShell({ sections }) {
   const isFirstVisit = useFirstVisit();
   const [activeTool,   setActiveTool]   = useState("select");
   const [activeLayer,  setActiveLayer]  = useState("home");
@@ -29,6 +45,8 @@ function DesignShell({ sections, theme, toggleTheme }) {
   const [accentColor,  setAccentColor]  = useState("#60a5fa");
   const [bgColor,      setBgColor]      = useState(null);
   const [cardBg,       setCardBg]       = useState(null);
+  const [textColor,    setTextColor]    = useState(null);
+  const [fontFamily,   setFontFamily]   = useState(fontOptions[0].value);
   const [dragOverId,   setDragOverId]   = useState(null);
   const dragItem  = useRef(null);
   const canvasRef = useRef(null);
@@ -37,6 +55,9 @@ function DesignShell({ sections, theme, toggleTheme }) {
   useEffect(() => {
     document.documentElement.style.setProperty("--accent", accentColor);
     document.documentElement.style.setProperty("--accent-light", lighten(accentColor));
+    document.documentElement.style.setProperty("--tag-bg",       lighten(accentColor, 0.75));
+    document.documentElement.style.setProperty("--tag-hover-bg", lighten(accentColor, 0.55));
+    document.documentElement.style.setProperty("--tag-text",     darken(accentColor, 0.35));
   }, [accentColor]);
 
   useEffect(() => {
@@ -50,21 +71,29 @@ function DesignShell({ sections, theme, toggleTheme }) {
     }
   }, [cardBg]);
 
+  useEffect(() => {
+    if (textColor) document.documentElement.style.setProperty("--text-color", textColor);
+  }, [textColor]);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty("--font-family", fontFamily);
+  }, [fontFamily]);
+
   // Sync active layer when user scrolls the canvas
   useEffect(() => {
-    if (!canvasRef.current) return;
-    const observers = [];
-    sectionOrder.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveLayer(id); },
-        { root: canvasRef.current, threshold: 0, rootMargin: "0px 0px -50% 0px" }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach((obs) => obs.disconnect());
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const handleScroll = () => {
+      const trigger = canvas.getBoundingClientRect().top + canvas.clientHeight * 0.4;
+      let active = sectionOrder[0];
+      for (const id of sectionOrder) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= trigger) active = id;
+      }
+      setActiveLayer(active);
+    };
+    canvas.addEventListener("scroll", handleScroll, { passive: true });
+    return () => canvas.removeEventListener("scroll", handleScroll);
   }, [sectionOrder]);
 
   const scrollTo = (id) => {
@@ -121,9 +150,6 @@ function DesignShell({ sections, theme, toggleTheme }) {
         </div>
 
         <div className="toolbar-right">
-          <button className="toolbar-btn" onClick={toggleTheme} title="Toggle theme">
-            {theme === "light" ? "🌙" : "☀️"}
-          </button>
           <a href="mailto:gh2313@nyu.edu" className="toolbar-btn toolbar-btn--primary">
             Contact
           </a>
@@ -206,7 +232,7 @@ function DesignShell({ sections, theme, toggleTheme }) {
             </div>
 
             {/* Color pickers */}
-            <div className="panel-section-label" style={{ marginTop: "1rem" }} data-tooltip="try changing the color!">Accent</div>
+            <div className="panel-section-label" style={{ marginTop: "1rem" }} data-tooltip="customize your experience!">Accent</div>
             <div className="color-row">
               <label className="color-input-wrapper">
                 <div className="color-swatch-preview" style={{ background: accentColor }} />
@@ -224,33 +250,47 @@ function DesignShell({ sections, theme, toggleTheme }) {
             <div className="panel-section-label" style={{ marginTop: "1.25rem" }}>Background</div>
             <div className="color-row">
               <label className="color-input-wrapper">
-                <div className="color-swatch-preview" style={{ background: bgColor || (theme === "dark" ? "#0f0f14" : "#ffffff") }} />
-                <input type="color" value={bgColor || (theme === "dark" ? "#0f0f14" : "#ffffff")} onChange={(e) => setBgColor(e.target.value)} className="color-input-hidden" />
+                <div className="color-swatch-preview" style={{ background: bgColor || "#ffffff" }} />
+                <input type="color" value={bgColor || "#ffffff"} onChange={(e) => setBgColor(e.target.value)} className="color-input-hidden" />
               </label>
-              <span className="color-hex">{(bgColor || (theme === "dark" ? "#0f0f14" : "#ffffff")).replace("#", "").toUpperCase()}</span>
+              <span className="color-hex">{(bgColor || "#ffffff").replace("#", "").toUpperCase()}</span>
               <span className="color-opacity">Page</span>
             </div>
             <div className="color-row">
               <label className="color-input-wrapper">
-                <div className="color-swatch-preview" style={{ background: cardBg || (theme === "dark" ? "#1a1a24" : "#f0f7ff") }} />
-                <input type="color" value={cardBg || (theme === "dark" ? "#1a1a24" : "#f0f7ff")} onChange={(e) => setCardBg(e.target.value)} className="color-input-hidden" />
+                <div className="color-swatch-preview" style={{ background: cardBg || "#f0f7ff" }} />
+                <input type="color" value={cardBg || "#f0f7ff"} onChange={(e) => setCardBg(e.target.value)} className="color-input-hidden" />
               </label>
-              <span className="color-hex">{(cardBg || (theme === "dark" ? "#1a1a24" : "#f0f7ff")).replace("#", "").toUpperCase()}</span>
+              <span className="color-hex">{(cardBg || "#f0f7ff").replace("#", "").toUpperCase()}</span>
               <span className="color-opacity">Card</span>
             </div>
 
             <div className="panel-section-label" style={{ marginTop: "1.25rem" }}>Typography</div>
-            <div className="prop-row">
+            <div className="prop-row" style={{ flexDirection: "column", alignItems: "stretch", gap: "0.4rem" }}>
               <span className="prop-label">Font</span>
-              <span className="prop-value">Inter</span>
+              <select
+                value={fontFamily}
+                onChange={(e) => setFontFamily(e.target.value)}
+                className="font-select"
+              >
+                {fontOptions.map((f) => (
+                  <option key={f.value} value={f.value}>{f.label}</option>
+                ))}
+              </select>
             </div>
-            <div className="prop-row">
-              <span className="prop-label">Weight</span>
-              <span className="prop-value">700</span>
-            </div>
-            <div className="prop-row">
-              <span className="prop-label">Size</span>
-              <span className="prop-value">16px</span>
+            <div className="panel-section-label" style={{ marginTop: "1.25rem" }}>Text Color</div>
+            <div className="color-row">
+              <label className="color-input-wrapper">
+                <div className="color-swatch-preview" style={{ background: textColor || "#1a1a1a" }} />
+                <input
+                  type="color"
+                  value={textColor || "#1a1a1a"}
+                  onChange={(e) => setTextColor(e.target.value)}
+                  className="color-input-hidden"
+                />
+              </label>
+              <span className="color-hex">{(textColor || "#1a1a1a").replace("#", "").toUpperCase()}</span>
+              <span className="color-opacity">Text</span>
             </div>
 
             <div className="panel-section-label" style={{ marginTop: "1.25rem" }}>Dimensions</div>

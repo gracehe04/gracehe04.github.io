@@ -369,6 +369,23 @@
   flex-shrink: 0;
 }
 
+.font-select {
+  width: 100%;
+  background: #2a2a3a;
+  color: #ccc;
+  border: 1px solid #3a3a4a;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 0.76rem;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+.font-select:focus {
+  border-color: #555;
+}
+
 .prop-value {
   font-size: 0.76rem;
   color: #bbb;
@@ -406,6 +423,7 @@
   max-width: 900px;
   margin: 0 auto;
   background: var(--bg-color);
+  font-family: var(--font-family);
   border-radius: 4px;
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.4),
