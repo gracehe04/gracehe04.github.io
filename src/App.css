@@ -1,6 +1,7 @@
 :root {
   --bg-color: #ffffff;
   --text-color: #1a1a1a;
+  --font-family: 'Inter', -apple-system, sans-serif;
   --card-bg: #f0f7ff;
   --card-shadow: rgba(96, 165, 250, 0.08);
   --tag-bg: #dbeafe;
@@ -14,25 +15,9 @@
   --border-color: #e5e7eb;
 }
 
-[data-theme="dark"] {
-  --bg-color: #0f0f14;
-  --text-color: #f0f0f5;
-  --card-bg: #1a1a24;
-  --card-shadow: rgba(147, 197, 253, 0.1);
-  --tag-bg: #1e3a5f;
-  --tag-text: #93c5fd;
-  --tag-hover-bg: #1e4a8a;
-  --accent: #60a5fa;
-  --accent-light: #93c5fd;
-  --nav-bg: rgba(15, 15, 20, 0.8);
-  --github-color: #e0e0e0;
-  --project-link-color: #60a5fa;
-  --border-color: #2a2a3a;
-}
-
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-family);
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;

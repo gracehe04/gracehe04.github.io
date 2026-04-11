@@ -9,11 +9,18 @@ function About() {
             <li>
                 I’m an undergraduate at New York University studying Computer Science and Applied Psychology, with an interest in building functional, user-centered applications and continuously improving my technical skills!
             </li>
+            <li>
+                This summer I'll be interning at&nbsp;
+                <a href="https://www.adobe.com/" target="_blank" rel="noopener noreferrer">
+                    Adobe
+                </a>
+                &nbsp;as a Software Engineer on the Acrobat x Express team, where I'll help shape new creative workflows and experiences.
+            </li>
             </ul>
             <h4>🌱 I’m currently working on ...</h4>
             <ul className = "jot-notes">
                 <li>
-                    Processing and analyzing datasets at&nbsp;  
+                    Processing and analyzing datasets at&nbsp;
                     <a href="https://www.thesocialcreatures.org/" target="_blank" rel="noopener noreferrer">
                         Social Creatures
                     </a>
