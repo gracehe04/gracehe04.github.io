@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { FiMousePointer, FiMove } from "react-icons/fi";
+import { FiMousePointer, FiMove, FiSun, FiMoon } from "react-icons/fi";
 import { HiHome, HiUser, HiCode, HiMail } from "react-icons/hi";
 import { MdDragIndicator } from "react-icons/md";
 import OnboardingTip from "./OnboardingTip";
@@ -47,6 +47,7 @@ function DesignShell({ sections }) {
   const [cardBg,       setCardBg]       = useState(null);
   const [textColor,    setTextColor]    = useState(null);
   const [fontFamily,   setFontFamily]   = useState(fontOptions[0].value);
+  const [shellTheme,   setShellTheme]   = useState("dark");
   const [dragOverId,   setDragOverId]   = useState(null);
   const dragItem  = useRef(null);
   const canvasRef = useRef(null);
@@ -122,7 +123,7 @@ function DesignShell({ sections }) {
   const activeMeta      = sectionMeta[activeLayer] || sectionMeta.home;
 
   return (
-    <div className="design-app">
+    <div className="design-app" data-shell={shellTheme}>
 
       {/* ── Toolbar ── */}
       <header className="design-toolbar">
@@ -150,6 +151,13 @@ function DesignShell({ sections }) {
         </div>
 
         <div className="toolbar-right">
+          <button
+            className="toolbar-btn"
+            onClick={() => setShellTheme(shellTheme === "dark" ? "light" : "dark")}
+            title="Toggle shell theme"
+          >
+            {shellTheme === "dark" ? <FiSun size={14} /> : <FiMoon size={14} />}
+          </button>
           <a href="mailto:gh2313@nyu.edu" className="toolbar-btn toolbar-btn--primary">
             Contact
           </a>
