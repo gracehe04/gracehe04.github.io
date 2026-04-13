@@ -1,3 +1,55 @@
+/* ── Shell theme variables ── */
+.design-app {
+  /* dark (default) */
+  --sh-toolbar:         #2c2c2c;
+  --sh-toolbar-border:  #1a1a1a;
+  --sh-panel:           #1e1e1e;
+  --sh-panel-border:    #2a2a2a;
+  --sh-canvas:          #3a3a3a;
+  --sh-canvas-dot:      #4a4a4a;
+  --sh-text-hi:         #e0e0e0;
+  --sh-text-md:         #aaa;
+  --sh-text-lo:         #666;
+  --sh-hover:           #3a3a3a;
+  --sh-hover-text:      #fff;
+  --sh-btn-border:      #444;
+  --sh-swatch-border:   rgba(255, 255, 255, 0.12);
+  --sh-handle:          #444;
+  --sh-scrollbar:       #555;
+  --sh-scrollbar-track: #2e2e2e;
+  --sh-prop-bg:         #252525;
+  --sh-prop-border:     #2e2e2e;
+  --sh-prop-value:      #bbb;
+  --sh-hex:             #ccc;
+  --sh-select-bg:       #2a2a3a;
+  --sh-select-border:   #3a3a4a;
+}
+
+.design-app[data-shell="light"] {
+  --sh-toolbar:         #f0f0f0;
+  --sh-toolbar-border:  #ddd;
+  --sh-panel:           #fafafa;
+  --sh-panel-border:    #e4e4e4;
+  --sh-canvas:          #d0d0d0;
+  --sh-canvas-dot:      #bbb;
+  --sh-text-hi:         #1a1a1a;
+  --sh-text-md:         #555;
+  --sh-text-lo:         #999;
+  --sh-hover:           #e8e8e8;
+  --sh-hover-text:      #1a1a1a;
+  --sh-btn-border:      #ccc;
+  --sh-swatch-border:   rgba(0, 0, 0, 0.1);
+  --sh-handle:          #bbb;
+  --sh-scrollbar:       #bbb;
+  --sh-scrollbar-track: #e0e0e0;
+  --sh-prop-bg:         #efefef;
+  --sh-prop-border:     #e0e0e0;
+  --sh-prop-value:      #333;
+  --sh-hex:             #444;
+  --sh-select-bg:       #f5f5f5;
+  --sh-select-border:   #ddd;
+}
+
 /* ── App shell ── */
 .design-app {
   height: 100vh;
@@ -10,8 +62,8 @@
 /* ── Toolbar ── */
 .design-toolbar {
   height: 48px;
-  background: #2c2c2c;
-  border-bottom: 1px solid #1a1a1a;
+  background: var(--sh-toolbar);
+  border-bottom: 1px solid var(--sh-toolbar-border);
   display: flex;
   align-items: center;
   padding: 0 12px;
@@ -47,14 +99,14 @@
 .toolbar-divider {
   width: 1px;
   height: 20px;
-  background: #444;
+  background: var(--sh-btn-border);
   margin: 0 8px;
   flex-shrink: 0;
 }
 
 .toolbar-filename {
   font-size: 0.825rem;
-  color: #e0e0e0;
+  color: var(--sh-text-hi);
   font-weight: 500;
   letter-spacing: -0.01em;
 }
@@ -67,15 +119,15 @@
   height: 30px;
   border: none;
   background: transparent;
-  color: #aaa;
+  color: var(--sh-text-md);
   border-radius: 6px;
   transition: background 0.15s, color 0.15s;
   flex-shrink: 0;
 }
 
 .tool-btn:hover {
-  background: #3a3a3a;
-  color: #fff;
+  background: var(--sh-hover);
+  color: var(--sh-hover-text);
 }
 
 .tool-btn--active {
@@ -92,9 +144,9 @@
   display: flex;
   align-items: center;
   padding: 0.3rem 0.7rem;
-  border: 1px solid #444;
+  border: 1px solid var(--sh-btn-border);
   background: transparent;
-  color: #ccc;
+  color: var(--sh-text-md);
   border-radius: 6px;
   font-size: 0.8rem;
   font-weight: 500;
@@ -102,12 +154,13 @@
   text-decoration: none;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .toolbar-btn:hover {
-  background: #3a3a3a;
-  color: #fff;
-  border-color: #555;
+  background: var(--sh-hover);
+  color: var(--sh-hover-text);
+  border-color: var(--sh-text-lo);
 }
 
 .toolbar-btn--primary {
@@ -133,8 +186,8 @@
 .design-panel {
   width: 220px;
   flex-shrink: 0;
-  background: #1e1e1e;
-  border-right: 1px solid #2a2a2a;
+  background: var(--sh-panel);
+  border-right: 1px solid var(--sh-panel-border);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -142,7 +195,7 @@
 
 .design-panel--right {
   border-right: none;
-  border-left: 1px solid #2a2a2a;
+  border-left: 1px solid var(--sh-panel-border);
 }
 
 .panel-header {
@@ -150,10 +203,10 @@
   display: flex;
   align-items: center;
   padding: 0 14px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid var(--sh-panel-border);
   font-size: 0.72rem;
   font-weight: 600;
-  color: #777;
+  color: var(--sh-text-lo);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   flex-shrink: 0;
@@ -172,14 +225,14 @@
   background: transparent;
 }
 .panel-body::-webkit-scrollbar-thumb {
-  background: #333;
+  background: var(--sh-scrollbar);
   border-radius: 2px;
 }
 
 .panel-section-label {
   font-size: 0.68rem;
   font-weight: 600;
-  color: #555;
+  color: var(--sh-text-lo);
   letter-spacing: 0.07em;
   text-transform: uppercase;
   padding: 0 14px;
@@ -195,7 +248,7 @@
   background: transparent;
   border: none;
   border-left: 2px solid transparent;
-  color: #aaa;
+  color: var(--sh-text-md);
   font-size: 0.82rem;
   font-family: inherit;
   text-align: left;
@@ -203,8 +256,8 @@
 }
 
 .layer-item:hover {
-  background: #2a2a2a;
-  color: #e0e0e0;
+  background: var(--sh-hover);
+  color: var(--sh-text-hi);
 }
 
 .layer-item--active {
@@ -221,13 +274,13 @@
 .drag-handle {
   display: flex;
   align-items: center;
-  color: #444;
+  color: var(--sh-handle);
   flex-shrink: 0;
   transition: color 0.1s;
 }
 
 .layer-item:hover .drag-handle {
-  color: #777;
+  color: var(--sh-text-lo);
 }
 
 .layer-icon {
@@ -312,7 +365,7 @@
   width: 16px;
   height: 16px;
   border-radius: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--sh-swatch-border);
   pointer-events: none;
 }
 
@@ -339,19 +392,19 @@
   height: 16px;
   border-radius: 3px;
   flex-shrink: 0;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--sh-swatch-border);
 }
 
 .color-hex {
   font-size: 0.76rem;
-  color: #ccc;
+  color: var(--sh-hex);
   font-family: 'SF Mono', 'Fira Code', monospace;
   flex: 1;
 }
 
 .color-opacity {
   font-size: 0.76rem;
-  color: #555;
+  color: var(--sh-text-lo);
 }
 
 .prop-row {
@@ -364,16 +417,16 @@
 
 .prop-label {
   font-size: 0.72rem;
-  color: #555;
+  color: var(--sh-text-lo);
   width: 48px;
   flex-shrink: 0;
 }
 
 .font-select {
   width: 100%;
-  background: #2a2a3a;
-  color: #ccc;
-  border: 1px solid #3a3a4a;
+  background: var(--sh-select-bg);
+  color: var(--sh-hex);
+  border: 1px solid var(--sh-select-border);
   border-radius: 4px;
   padding: 4px 6px;
   font-size: 0.76rem;
@@ -383,14 +436,14 @@
 }
 
 .font-select:focus {
-  border-color: #555;
+  border-color: var(--sh-text-lo);
 }
 
 .prop-value {
   font-size: 0.76rem;
-  color: #bbb;
-  background: #252525;
-  border: 1px solid #2e2e2e;
+  color: var(--sh-prop-value);
+  background: var(--sh-prop-bg);
+  border: 1px solid var(--sh-prop-border);
   border-radius: 4px;
   padding: 2px 7px;
   flex: 1;
@@ -402,8 +455,8 @@
 .design-canvas {
   flex: 1;
   overflow-y: auto;
-  background: #3a3a3a;
-  background-image: radial-gradient(circle, #4a4a4a 1px, transparent 1px);
+  background: var(--sh-canvas);
+  background-image: radial-gradient(circle, var(--sh-canvas-dot) 1px, transparent 1px);
   background-size: 24px 24px;
   padding: 32px;
 }
@@ -412,10 +465,10 @@
   width: 8px;
 }
 .design-canvas::-webkit-scrollbar-track {
-  background: #2e2e2e;
+  background: var(--sh-scrollbar-track);
 }
 .design-canvas::-webkit-scrollbar-thumb {
-  background: #555;
+  background: var(--sh-scrollbar);
   border-radius: 4px;
 }
 
