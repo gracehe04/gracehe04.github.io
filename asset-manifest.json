@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.76afdfda.css",
-    "main.js": "/static/js/main.e3389285.js",
+    "main.js": "/static/js/main.0982bf03.js",
     "static/js/453.ececc0a5.chunk.js": "/static/js/453.ececc0a5.chunk.js",
-    "static/media/He_Grace2025.JPG": "/static/media/He_Grace2025.fbc5f5a9084663c08438.JPG",
+    "static/media/He_Grace2025.png": "/static/media/He_Grace2025.a83e249ada385ea6e336.png",
     "index.html": "/index.html",
     "main.76afdfda.css.map": "/static/css/main.76afdfda.css.map",
-    "main.e3389285.js.map": "/static/js/main.e3389285.js.map",
+    "main.0982bf03.js.map": "/static/js/main.0982bf03.js.map",
     "453.ececc0a5.chunk.js.map": "/static/js/453.ececc0a5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.76afdfda.css",
-    "static/js/main.e3389285.js"
+    "static/js/main.0982bf03.js"
   ]
 }
