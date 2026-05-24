@@ -5,12 +5,19 @@ import OnboardingTip from './OnboardingTip';
 import { useFirstVisit } from '../hooks/useFirstVisit';
 
 const initialProjects = [
+    {
+    name: "InternBuddy",
+    description: "Helping interns find community faster",
+    link: "https://github.com/agile-students-spring2026/final-internbuddy/pulls",
+    deployment: "http://146.190.210.0/",
+    technologies: ["React", "Vite", "Node.js", "JavaScript", "MongoDB", "Docker", "DigitalOcean", "HTML", "CSS"],
+  },
   {
     name: "PantryPal",
     description: "Generate recipes based on the ingredients you have available in your pantry",
     link: "https://github.com/swe-students-fall2025/5-final-galls",
     deployment: "http://138.197.30.226:5001/",
-    technologies: ["Python", "FastAPI", "Flask", "JavaScript", "MongoDB", "Pytest", "HTML", "CSS"],
+    technologies: ["Python", "FastAPI", "Flask", "JavaScript", "MongoDB", "Pytest", "HTML", "CSS", "Docker", "DigitalOcean"],
   },
   {
     name: "MojiHands",

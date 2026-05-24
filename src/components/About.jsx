@@ -14,7 +14,7 @@ function About() {
                 <a href="https://www.adobe.com/" target="_blank" rel="noopener noreferrer">
                     Adobe
                 </a>
-                &nbsp;as a Software Engineer on the Acrobat x Express team, where I'll help shape new creative workflows and experiences.
+                &nbsp;as a Software Engineer on the Acrobat team, where I'll help shape new creative workflows and experiences.
             </li>
             </ul>
             <h4>🌱 I’m currently working on ...</h4>

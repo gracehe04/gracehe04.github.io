@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import "./Home.css";
-import headshot from "../assets/He_Grace2025.JPG";
+import headshot from "../assets/He_Grace2025.png";
 
 const Header = () => {
   const [dynamicText, setDynamicText] = useState("");
@@ -40,7 +40,7 @@ const Header = () => {
     <section id="home" className="header-container">
       <img src={headshot} alt="Grace He" className="header-photo" />
       <h2 className="header-title">Hi! I'm Grace :)</h2>
-      <p className="header-tagline">CS + Applied Psych @ NYU &nbsp;·&nbsp; Incoming @ Adobe</p>
+      <p className="header-tagline">CS + Applied Psych @ NYU &nbsp;·&nbsp; SWE @ Adobe</p>
       <h3 className="header-text">
         {dynamicText}
         <span className="cursor"></span>
