@@ -3,7 +3,10 @@ import { FiMousePointer, FiMove, FiSun, FiMoon } from "react-icons/fi";
 import { HiHome, HiUser, HiCode, HiMail } from "react-icons/hi";
 import { MdDragIndicator } from "react-icons/md";
 import OnboardingTip from "./OnboardingTip";
+import ColorRow from "./ColorRow";
 import { useFirstVisit } from "../hooks/useFirstVisit";
+import { useDragReorder, reorder } from "../hooks/useDragReorder";
+import { lighten, darken, setCssVars } from "../utils/color";
 import "./DesignShell.css";
 
 const fontOptions = [
@@ -21,21 +24,11 @@ const sectionMeta = {
   footer:   { label: "Footer",  Icon: HiMail },
 };
 
-const lighten = (hex, amount = 0.25) => {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  const to255 = (v) => Math.min(255, Math.round(v + (255 - v) * amount));
-  return `#${[r, g, b].map(to255).map((v) => v.toString(16).padStart(2, "0")).join("")}`;
-};
-
-const darken = (hex, amount = 0.25) => {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  const to0 = (v) => Math.max(0, Math.round(v * (1 - amount)));
-  return `#${[r, g, b].map(to0).map((v) => v.toString(16).padStart(2, "0")).join("")}`;
-};
+const PanelSectionLabel = ({ style, children, ...props }) => (
+  <div className="panel-section-label" style={{ marginTop: "1.25rem", ...style }} {...props}>
+    {children}
+  </div>
+);
 
 function DesignShell({ sections }) {
   const isFirstVisit = useFirstVisit();
@@ -48,36 +41,33 @@ function DesignShell({ sections }) {
   const [textColor,    setTextColor]    = useState(null);
   const [fontFamily,   setFontFamily]   = useState(fontOptions[0].value);
   const [shellTheme,   setShellTheme]   = useState("dark");
-  const [dragOverId,   setDragOverId]   = useState(null);
-  const dragItem  = useRef(null);
   const canvasRef = useRef(null);
 
   // Push colors into CSS variables live
   useEffect(() => {
-    document.documentElement.style.setProperty("--accent", accentColor);
-    document.documentElement.style.setProperty("--accent-light", lighten(accentColor));
-    document.documentElement.style.setProperty("--tag-bg",       lighten(accentColor, 0.75));
-    document.documentElement.style.setProperty("--tag-hover-bg", lighten(accentColor, 0.55));
-    document.documentElement.style.setProperty("--tag-text",     darken(accentColor, 0.35));
+    setCssVars({
+      "--accent":       accentColor,
+      "--accent-light": lighten(accentColor),
+      "--tag-bg":       lighten(accentColor, 0.75),
+      "--tag-hover-bg": lighten(accentColor, 0.55),
+      "--tag-text":     darken(accentColor, 0.35),
+    });
   }, [accentColor]);
 
   useEffect(() => {
-    if (bgColor) document.documentElement.style.setProperty("--bg-color", bgColor);
+    if (bgColor) setCssVars({ "--bg-color": bgColor });
   }, [bgColor]);
 
   useEffect(() => {
-    if (cardBg) {
-      document.documentElement.style.setProperty("--card-bg", cardBg);
-      document.documentElement.style.setProperty("--tag-bg", lighten(cardBg, 0.1));
-    }
+    if (cardBg) setCssVars({ "--card-bg": cardBg, "--tag-bg": lighten(cardBg, 0.1) });
   }, [cardBg]);
 
   useEffect(() => {
-    if (textColor) document.documentElement.style.setProperty("--text-color", textColor);
+    if (textColor) setCssVars({ "--text-color": textColor });
   }, [textColor]);
 
   useEffect(() => {
-    document.documentElement.style.setProperty("--font-family", fontFamily);
+    setCssVars({ "--font-family": fontFamily });
   }, [fontFamily]);
 
   // Sync active layer when user scrolls the canvas
@@ -103,21 +93,12 @@ function DesignShell({ sections }) {
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  // ── Drag to reorder ──
-  const onDragStart = (id) => { dragItem.current = id; };
-  const onDragOver  = (e, id) => { e.preventDefault(); setDragOverId(id); };
-  const onDragEnd   = () => { dragItem.current = null; setDragOverId(null); };
-  const onDrop      = (targetId) => {
-    if (!dragItem.current || dragItem.current === targetId) { setDragOverId(null); return; }
-    const next = [...sectionOrder];
-    const from = next.indexOf(dragItem.current);
-    const to   = next.indexOf(targetId);
-    next.splice(from, 1);
-    next.splice(to, 0, dragItem.current);
-    setSectionOrder(next);
-    dragItem.current = null;
-    setDragOverId(null);
-  };
+  const { dragOverKey: dragOverId, getDragProps, getDropProps } = useDragReorder(
+    (fromId, toId) =>
+      setSectionOrder((order) =>
+        reorder(order, order.indexOf(fromId), order.indexOf(toId))
+      )
+  );
 
   const orderedSections = sectionOrder.map((id) => sections.find((s) => s.id === id));
   const activeMeta      = sectionMeta[activeLayer] || sectionMeta.home;
@@ -192,11 +173,7 @@ function DesignShell({ sections }) {
                     dragOverId  === id  ? "layer-item--drag-over" : "",
                   ].join(" ")}
                   onClick={() => scrollTo(id)}
-                  draggable
-                  onDragStart={() => onDragStart(id)}
-                  onDragOver={(e) => onDragOver(e, id)}
-                  onDrop={() => onDrop(id)}
-                  onDragEnd={onDragEnd}
+                  {...getDragProps(id)}
                 >
                   <span className="drag-handle"><MdDragIndicator size={14} /></span>
                   <span className="layer-icon"><Icon size={13} /></span>
@@ -219,8 +196,7 @@ function DesignShell({ sections }) {
                   dragOverId  === id ? "section-wrapper--drop-target" : "",
                 ].join(" ")}
                 onClick={() => setActiveLayer(id)}
-                onDragOver={(e) => onDragOver(e, id)}
-                onDrop={() => onDrop(id)}
+                {...getDropProps(id)}
               >
 <Component />
               </div>
@@ -240,40 +216,15 @@ function DesignShell({ sections }) {
             </div>
 
             {/* Color pickers */}
-            <div className="panel-section-label" style={{ marginTop: "1rem" }} data-tooltip="customize your experience!">Accent</div>
-            <div className="color-row">
-              <label className="color-input-wrapper">
-                <div className="color-swatch-preview" style={{ background: accentColor }} />
-                <input type="color" value={accentColor} onChange={(e) => setAccentColor(e.target.value)} className="color-input-hidden" />
-              </label>
-              <span className="color-hex">{accentColor.replace("#", "").toUpperCase()}</span>
-              <span className="color-opacity">Accent</span>
-            </div>
-            <div className="color-row">
-              <div className="color-swatch-preview" style={{ background: lighten(accentColor) }} />
-              <span className="color-hex">{lighten(accentColor).replace("#", "").toUpperCase()}</span>
-              <span className="color-opacity">Light</span>
-            </div>
+            <PanelSectionLabel style={{ marginTop: "1rem" }} data-tooltip="customize your experience!">Accent</PanelSectionLabel>
+            <ColorRow label="Accent" value={accentColor} onChange={setAccentColor} />
+            <ColorRow label="Light" value={lighten(accentColor)} />
 
-            <div className="panel-section-label" style={{ marginTop: "1.25rem" }}>Background</div>
-            <div className="color-row">
-              <label className="color-input-wrapper">
-                <div className="color-swatch-preview" style={{ background: bgColor || "#ffffff" }} />
-                <input type="color" value={bgColor || "#ffffff"} onChange={(e) => setBgColor(e.target.value)} className="color-input-hidden" />
-              </label>
-              <span className="color-hex">{(bgColor || "#ffffff").replace("#", "").toUpperCase()}</span>
-              <span className="color-opacity">Page</span>
-            </div>
-            <div className="color-row">
-              <label className="color-input-wrapper">
-                <div className="color-swatch-preview" style={{ background: cardBg || "#f0f7ff" }} />
-                <input type="color" value={cardBg || "#f0f7ff"} onChange={(e) => setCardBg(e.target.value)} className="color-input-hidden" />
-              </label>
-              <span className="color-hex">{(cardBg || "#f0f7ff").replace("#", "").toUpperCase()}</span>
-              <span className="color-opacity">Card</span>
-            </div>
+            <PanelSectionLabel>Background</PanelSectionLabel>
+            <ColorRow label="Page" value={bgColor || "#ffffff"} onChange={setBgColor} />
+            <ColorRow label="Card" value={cardBg || "#f0f7ff"} onChange={setCardBg} />
 
-            <div className="panel-section-label" style={{ marginTop: "1.25rem" }}>Typography</div>
+            <PanelSectionLabel>Typography</PanelSectionLabel>
             <div className="prop-row" style={{ flexDirection: "column", alignItems: "stretch", gap: "0.4rem" }}>
               <span className="prop-label">Font</span>
               <select
@@ -286,34 +237,16 @@ function DesignShell({ sections }) {
                 ))}
               </select>
             </div>
-            <div className="panel-section-label" style={{ marginTop: "1.25rem" }}>Text Color</div>
-            <div className="color-row">
-              <label className="color-input-wrapper">
-                <div className="color-swatch-preview" style={{ background: textColor || "#1a1a1a" }} />
-                <input
-                  type="color"
-                  value={textColor || "#1a1a1a"}
-                  onChange={(e) => setTextColor(e.target.value)}
-                  className="color-input-hidden"
-                />
-              </label>
-              <span className="color-hex">{(textColor || "#1a1a1a").replace("#", "").toUpperCase()}</span>
-              <span className="color-opacity">Text</span>
-            </div>
+            <PanelSectionLabel>Text Color</PanelSectionLabel>
+            <ColorRow label="Text" value={textColor || "#1a1a1a"} onChange={setTextColor} />
 
-            <div className="panel-section-label" style={{ marginTop: "1.25rem" }}>Dimensions</div>
-            <div className="prop-row">
-              <span className="prop-label">W</span>
-              <span className="prop-value">900px</span>
-            </div>
-            <div className="prop-row">
-              <span className="prop-label">H</span>
-              <span className="prop-value">Auto</span>
-            </div>
-            <div className="prop-row">
-              <span className="prop-label">R</span>
-              <span className="prop-value">4px</span>
-            </div>
+            <PanelSectionLabel>Dimensions</PanelSectionLabel>
+            {[["W", "900px"], ["H", "Auto"], ["R", "4px"]].map(([label, value]) => (
+              <div className="prop-row" key={label}>
+                <span className="prop-label">{label}</span>
+                <span className="prop-value">{value}</span>
+              </div>
+            ))}
 
           </div>
         </aside>

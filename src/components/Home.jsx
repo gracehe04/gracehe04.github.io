@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { HiOutlineDocumentText } from "react-icons/hi";
+import ExternalLink from "./ExternalLink";
 import "./Home.css";
 import headshot from "../assets/He_Grace2025.png";
 
@@ -47,18 +48,18 @@ const Header = () => {
       </h3>
 
       <div className="header-cta">
-        <a href="https://github.com/gracehe04" target="_blank" rel="noopener noreferrer" className="cta-btn">
+        <ExternalLink href="https://github.com/gracehe04" className="cta-btn">
           <FaGithub size={17} />
           GitHub
-        </a>
-        <a href="https://www.linkedin.com/in/gracehe04/" target="_blank" rel="noopener noreferrer" className="cta-btn">
+        </ExternalLink>
+        <ExternalLink href="https://www.linkedin.com/in/gracehe04/" className="cta-btn">
           <FaLinkedin size={17} />
           LinkedIn
-        </a>
-        <a href={`${process.env.PUBLIC_URL}/Grace_He_Resume.pdf`} target="_blank" rel="noopener noreferrer" className="cta-btn cta-btn--primary">
+        </ExternalLink>
+        <ExternalLink href={`${process.env.PUBLIC_URL}/Grace_He_Resume.pdf`} className="cta-btn cta-btn--primary">
           <HiOutlineDocumentText size={18} />
           Resume
-        </a>
+        </ExternalLink>
       </div>
 
       <a href="#about" className="scroll-indicator" aria-label="Scroll down">
