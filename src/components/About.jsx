@@ -1,3 +1,4 @@
+import ExternalLink from './ExternalLink';
 import '../components/About.css';
 function About() {
 
@@ -11,9 +12,9 @@ function About() {
             </li>
             <li>
                 This summer I'll be interning at&nbsp;
-                <a href="https://www.adobe.com/" target="_blank" rel="noopener noreferrer">
+                <ExternalLink href="https://www.adobe.com/">
                     Adobe
-                </a>
+                </ExternalLink>
                 &nbsp;as a Software Engineer on the Acrobat team, where I'll help shape new creative workflows and experiences.
             </li>
             </ul>
@@ -21,41 +22,41 @@ function About() {
             <ul className = "jot-notes">
                 <li>
                     Processing and analyzing datasets at&nbsp;
-                    <a href="https://www.thesocialcreatures.org/" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink href="https://www.thesocialcreatures.org/">
                         Social Creatures
-                    </a>
+                    </ExternalLink>
                     &nbsp;using Python (pandas) & R to support REDCap data migration for the&nbsp;
-                    <a href="https://www.thesocialcreatures.org/bondedbybaby" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink href="https://www.thesocialcreatures.org/bondedbybaby">
                     Bonded by Baby
-                    </a>
+                    </ExternalLink>
                     &nbsp;project.
                 </li>
                 <li>
                     Building the&nbsp;
-                    <a href="https://gdg.community.dev/gdg-on-campus-new-york-university-new-york-united-states/" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink href="https://gdg.community.dev/gdg-on-campus-new-york-university-new-york-united-states/">
                        Google Developers Group @ NYU's
-                    </a>
+                    </ExternalLink>
                     &nbsp;first Dev Team :)
                 </li>
             </ul>
             <h4>🌸 In the past I worked at...</h4>
             <ul className = "jot-notes">
                 <li>
-                    <a href="https://engineering.nike.com/" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink href="https://engineering.nike.com/">
                     Nike
-                    </a>
+                    </ExternalLink>
                     &nbsp;as a Software Engineering Intern on the Finance & Procurement Technology team, where I engineered a TypeScript AWS service to automate financial reconciliation for 300K+ daily transactions ($5.52B revenue).
                 </li>
                 <li>
-                    <a href="https://eulerity.com/" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink href="https://eulerity.com/">
                     Eulerity
-                    </a>
+                    </ExternalLink>
                     &nbsp;as a Software Engineering Intern where I worked developed key front-end features with TypeScript and React, integrating REST APIs for dashboards used by 100+ clients.
                 </li>
                 <li>
-                    <a href="https://www.helloconstellation.com/" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink href="https://www.helloconstellation.com/">
                         Constellation
-                    </a>
+                    </ExternalLink>
                     &nbsp;where I engineered scripts using Python to analyze 20,000+ data points across all projects, expediting team operations by 95%
                 </li>
             </ul>

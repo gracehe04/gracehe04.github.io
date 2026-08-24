@@ -1,8 +1,10 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { FaGithub, FaLink } from 'react-icons/fa';
 import { MdDragIndicator } from 'react-icons/md';
 import OnboardingTip from './OnboardingTip';
+import ExternalLink from './ExternalLink';
 import { useFirstVisit } from '../hooks/useFirstVisit';
+import { useDragReorder, reorder } from '../hooks/useDragReorder';
 
 const initialProjects = [
     {
@@ -72,25 +74,10 @@ const initialProjects = [
 
 function Projects() {
   const [projects, setProjects] = useState(initialProjects);
-  const [dragOverIdx, setDragOverIdx] = useState(null);
-  const dragIdx = useRef(null);
   const isFirstVisit = useFirstVisit();
-
-  const onDragStart = (idx) => { dragIdx.current = idx; };
-  const onDragOver  = (e, idx) => { e.preventDefault(); setDragOverIdx(idx); };
-  const onDragEnd   = () => { dragIdx.current = null; setDragOverIdx(null); };
-  const onDrop      = (targetIdx) => {
-    if (dragIdx.current === null || dragIdx.current === targetIdx) {
-      setDragOverIdx(null);
-      return;
-    }
-    const next = [...projects];
-    const [moved] = next.splice(dragIdx.current, 1);
-    next.splice(targetIdx, 0, moved);
-    setProjects(next);
-    dragIdx.current = null;
-    setDragOverIdx(null);
-  };
+  const { dragOverKey: dragOverIdx, getDragProps } = useDragReorder(
+    (fromIdx, toIdx) => setProjects((list) => reorder(list, fromIdx, toIdx))
+  );
 
   return (
     <section id="projects" className="section">
@@ -101,11 +88,7 @@ function Projects() {
           <div
             className={`project-card ${dragOverIdx === index ? "project-card--drop-target" : ""}`}
             key={project.name}
-            draggable
-            onDragStart={() => onDragStart(index)}
-            onDragOver={(e) => onDragOver(e, index)}
-            onDrop={() => onDrop(index)}
-            onDragEnd={onDragEnd}
+            {...getDragProps(index)}
           >
             <div className="card-drag-handle" data-tooltip="Drag to reorder">
               <MdDragIndicator size={14} />
@@ -126,14 +109,14 @@ function Projects() {
             </div>
             <div className="project-links">
               {project.deployment && (
-                <a href={project.deployment} target="_blank" rel="noopener noreferrer" className="deployment-link" data-tooltip="View deployment">
+                <ExternalLink href={project.deployment} className="deployment-link" data-tooltip="View deployment">
                   <FaLink size={21} style={{ marginRight: "0.5rem" }} />
-                </a>
+                </ExternalLink>
               )}
               {project.link && project.link !== "N/A" && (
-                <a href={project.link} target="_blank" rel="noopener noreferrer" className="github-link" data-tooltip="View on GitHub">
+                <ExternalLink href={project.link} className="github-link" data-tooltip="View on GitHub">
                   <FaGithub size={24} />
-                </a>
+                </ExternalLink>
               )}
             </div>
           </div>
