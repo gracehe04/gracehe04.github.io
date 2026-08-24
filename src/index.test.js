@@ -2,7 +2,10 @@ jest.mock("react-dom/client", () => ({
   createRoot: jest.fn(),
 }));
 jest.mock("./App", () => () => null);
-jest.mock("./reportWebVitals", () => jest.fn());
+jest.mock("./reportWebVitals", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
 
 test("mounts the application and initializes web vitals", () => {
   document.body.innerHTML = '<div id="root"></div>';

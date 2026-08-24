@@ -1,37 +1,31 @@
 import { waitFor } from "@testing-library/react";
 import reportWebVitals from "./reportWebVitals";
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from "web-vitals";
-
-jest.mock("web-vitals", () => ({
-  getCLS: jest.fn(),
-  getFID: jest.fn(),
-  getFCP: jest.fn(),
-  getLCP: jest.fn(),
-  getTTFB: jest.fn(),
-}));
-
-const metrics = [getCLS, getFID, getFCP, getLCP, getTTFB];
-
-beforeEach(() => {
-  metrics.forEach((metric) => metric.mockClear());
-});
 
 test("registers every web vital when given a callback", async () => {
-  const onPerfEntry = jest.fn();
+  const onPerfEntry = () => {};
+  const metrics = {
+    getCLS: jest.fn(),
+    getFID: jest.fn(),
+    getFCP: jest.fn(),
+    getLCP: jest.fn(),
+    getTTFB: jest.fn(),
+  };
+  const loadWebVitals = jest.fn().mockResolvedValue(metrics);
 
-  reportWebVitals(onPerfEntry);
+  reportWebVitals(onPerfEntry, loadWebVitals);
 
   await waitFor(() => {
-    metrics.forEach((metric) => {
+    Object.values(metrics).forEach((metric) => {
       expect(metric).toHaveBeenCalledWith(onPerfEntry);
     });
   });
+  expect(loadWebVitals).toHaveBeenCalledTimes(1);
 });
 
 test("does not register metrics without a callback", () => {
-  reportWebVitals();
+  const loadWebVitals = jest.fn();
 
-  metrics.forEach((metric) => {
-    expect(metric).not.toHaveBeenCalled();
-  });
+  reportWebVitals(undefined, loadWebVitals);
+
+  expect(loadWebVitals).not.toHaveBeenCalled();
 });
