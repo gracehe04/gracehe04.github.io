@@ -6,6 +6,8 @@ const reportWebVitals = onPerfEntry => {
       getFCP(onPerfEntry);
       getLCP(onPerfEntry);
       getTTFB(onPerfEntry);
+    }).catch((error) => {
+      console.error("Failed to load web-vitals for performance reporting.", error);
     });
   }
 };
