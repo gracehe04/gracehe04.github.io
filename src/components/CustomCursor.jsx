@@ -15,7 +15,7 @@ function CustomCursor() {
   }, []);
 
   return (
-    <div ref={ref} className="custom-cursor">
+    <div ref={ref} className="custom-cursor" data-testid="custom-cursor">
       <svg
         width="18"
         height="20"
