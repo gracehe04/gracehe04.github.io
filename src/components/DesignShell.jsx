@@ -3,6 +3,7 @@ import { FiMousePointer, FiMove, FiSun, FiMoon } from "react-icons/fi";
 import { HiHome, HiUser, HiCode, HiMail } from "react-icons/hi";
 import { MdDragIndicator } from "react-icons/md";
 import OnboardingTip from "./OnboardingTip";
+import ErrorBoundary from "./ErrorBoundary";
 import { useFirstVisit } from "../hooks/useFirstVisit";
 import "./DesignShell.css";
 
@@ -21,7 +22,14 @@ const sectionMeta = {
   footer:   { label: "Footer",  Icon: HiMail },
 };
 
+const isHexColor = (value) => typeof value === "string" && /^#[0-9a-fA-F]{6}$/.test(value);
+
 const lighten = (hex, amount = 0.25) => {
+  if (!isHexColor(hex)) {
+    console.warn("Invalid hex color passed to lighten:", hex);
+    return hex;
+  }
+
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);
   const b = parseInt(hex.slice(5, 7), 16);
@@ -30,6 +38,11 @@ const lighten = (hex, amount = 0.25) => {
 };
 
 const darken = (hex, amount = 0.25) => {
+  if (!isHexColor(hex)) {
+    console.warn("Invalid hex color passed to darken:", hex);
+    return hex;
+  }
+
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);
   const b = parseInt(hex.slice(5, 7), 16);
@@ -112,6 +125,15 @@ function DesignShell({ sections }) {
     const next = [...sectionOrder];
     const from = next.indexOf(dragItem.current);
     const to   = next.indexOf(targetId);
+    if (from === -1 || to === -1) {
+      console.warn("Unable to reorder sections because a dragged or target section was not found.", {
+        draggedId: dragItem.current,
+        targetId,
+      });
+      dragItem.current = null;
+      setDragOverId(null);
+      return;
+    }
     next.splice(from, 1);
     next.splice(to, 0, dragItem.current);
     setSectionOrder(next);
@@ -119,7 +141,15 @@ function DesignShell({ sections }) {
     setDragOverId(null);
   };
 
-  const orderedSections = sectionOrder.map((id) => sections.find((s) => s.id === id));
+  const orderedSections = sectionOrder.reduce((ordered, id) => {
+    const section = sections.find((s) => s.id === id);
+    if (!section || !sectionMeta[id]) {
+      console.warn("Skipping unknown section configuration.", { id });
+      return ordered;
+    }
+    ordered.push(section);
+    return ordered;
+  }, []);
   const activeMeta      = sectionMeta[activeLayer] || sectionMeta.home;
 
   return (
@@ -182,7 +212,10 @@ function DesignShell({ sections }) {
               )}
             </div>
             {sectionOrder.map((id) => {
-              const { label, Icon } = sectionMeta[id];
+              const metadata = sectionMeta[id];
+              const section = sections.find((s) => s.id === id);
+              if (!metadata || !section) return null;
+              const { label, Icon } = metadata;
               return (
                 <div
                   key={id}
@@ -222,7 +255,9 @@ function DesignShell({ sections }) {
                 onDragOver={(e) => onDragOver(e, id)}
                 onDrop={() => onDrop(id)}
               >
-<Component />
+                <ErrorBoundary sectionLabel={sectionMeta[id].label}>
+                  <Component />
+                </ErrorBoundary>
               </div>
             ))}
           </div>

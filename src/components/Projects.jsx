@@ -80,12 +80,23 @@ function Projects() {
   const onDragOver  = (e, idx) => { e.preventDefault(); setDragOverIdx(idx); };
   const onDragEnd   = () => { dragIdx.current = null; setDragOverIdx(null); };
   const onDrop      = (targetIdx) => {
-    if (dragIdx.current === null || dragIdx.current === targetIdx) {
+    const from = dragIdx.current;
+    const isValidIndex = (idx) => Number.isInteger(idx) && idx >= 0 && idx < projects.length;
+    if (!isValidIndex(from) || !isValidIndex(targetIdx)) {
+      console.warn("Unable to reorder projects because a dragged or target index was out of bounds.", {
+        draggedIndex: from,
+        targetIndex: targetIdx,
+      });
+      dragIdx.current = null;
+      setDragOverIdx(null);
+      return;
+    }
+    if (from === targetIdx) {
       setDragOverIdx(null);
       return;
     }
     const next = [...projects];
-    const [moved] = next.splice(dragIdx.current, 1);
+    const [moved] = next.splice(from, 1);
     next.splice(targetIdx, 0, moved);
     setProjects(next);
     dragIdx.current = null;

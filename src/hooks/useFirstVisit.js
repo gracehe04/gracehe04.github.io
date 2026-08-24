@@ -4,10 +4,21 @@ export function useFirstVisit() {
   const [isFirst, setIsFirst] = useState(false);
 
   useEffect(() => {
-    const seen = localStorage.getItem("portfolio-onboarding");
+    let seen;
+    try {
+      seen = localStorage.getItem("portfolio-onboarding");
+    } catch (error) {
+      console.warn("Unable to read portfolio onboarding state from localStorage.", error);
+      return;
+    }
+
     if (!seen) {
       setIsFirst(true);
-      localStorage.setItem("portfolio-onboarding", "1");
+      try {
+        localStorage.setItem("portfolio-onboarding", "1");
+      } catch (error) {
+        console.warn("Unable to save portfolio onboarding state to localStorage.", error);
+      }
     }
   }, []);
 
