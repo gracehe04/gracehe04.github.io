@@ -240,7 +240,17 @@ function DesignShell({ sections }) {
             </div>
 
             {/* Color pickers */}
-            <div className="panel-section-label" style={{ marginTop: "1rem" }} data-tooltip="customize your experience!">Accent</div>
+            <div className="panel-section-label" style={{ marginTop: "1rem", position: "relative" }} data-tooltip="customize your experience!">
+              Accent
+              {isFirstVisit && (
+                <OnboardingTip
+                  text="Customize your experience!"
+                  tail="top"
+                  duration={12}
+                  style={{ top: "calc(100% + 8px)", left: "50%", transform: "translateX(-50%)" }}
+                />
+              )}
+            </div>
             <div className="color-row">
               <label className="color-input-wrapper">
                 <div className="color-swatch-preview" style={{ background: accentColor }} />

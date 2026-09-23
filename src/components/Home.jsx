@@ -55,10 +55,6 @@ const Header = () => {
           <FaLinkedin size={17} />
           LinkedIn
         </a>
-        <a href={`${process.env.PUBLIC_URL}/Grace_He_Resume.pdf`} target="_blank" rel="noopener noreferrer" className="cta-btn cta-btn--primary">
-          <HiOutlineDocumentText size={18} />
-          Resume
-        </a>
       </div>
 
       <a href="#about" className="scroll-indicator" aria-label="Scroll down">
